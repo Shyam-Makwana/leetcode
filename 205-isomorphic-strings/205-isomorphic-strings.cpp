@@ -1,14 +1,11 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        unordered_map<int, int> ss, tt;
-        int n = s.length();
-        for(int i=0;i<n;i++){
-            if(ss[s[i]-'a'] == tt[t[i]-'a'])    {
-                ss[s[i]-'a'] = i+1;
-                tt[t[i]-'a'] = i+1;
-            }
-            else return false;
+        int ss[256] = {}, tt[256] = {};
+        for (int i = 0; i < s.size(); ++i) {
+            if (ss[s[i]] != tt[t[i]]) return false;
+            ss[s[i]] = i + 1;
+            tt[t[i]] = i + 1;
         }
         return true;
     }
