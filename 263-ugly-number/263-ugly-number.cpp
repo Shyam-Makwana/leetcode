@@ -1,12 +1,9 @@
 class Solution {
 public:
     bool isUgly(int num) {
-        if(num == 0) return false;
-    
-        while(num%2 == 0) num/=2;
-        while(num%3 == 0) num/=3;
-        while(num%5 == 0) num/=5;
-
+        vector<int> v = {2,3,5};
+        for(int i:v)
+            while(num && num%i==0) num/=i;
         return num == 1;
     }
 };
