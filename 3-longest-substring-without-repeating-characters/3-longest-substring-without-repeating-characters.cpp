@@ -1,15 +1,22 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        vector<int> v(256,-1);
-        int l=0, r=0, ans = 0;
-        while(r<s.length()){
-            if(v[s[r]]!=-1) l = max(v[s[r]]+1, l);
-            ans = max(ans, r-l+1);
-            v[s[r]]=r;
-            r++;
-            cout<<ans<<endl;
-        }
-        return ans;
+        unordered_set<char> set;
+		int i = 0, j = 0, n = s.size(), ans = 0;
+		while(j<n)
+		{
+			if(set.find(s[j]) == set.end()) //If the character does not in the set
+			{
+				set.insert(s[j++]); //Insert the character in set and update the j counter
+				ans = max(ans, j-i); //Check if the new distance is longer than the current answer
+			}
+			else
+			{
+				set.erase(s[i++]); 
+				/*If character does exist in the set, ie. it is a repeated character, 
+				we update the left side counter i, and continue with the checking for substring. */
+			}
+		}
+		return ans;
     }
 };
