@@ -8,7 +8,7 @@ public:
 			if(set.find(s[j]) == set.end()) //If the character does not in the set
 			{
 				set.insert(s[j++]); //Insert the character in set and update the j counter
-				ans = max(ans, j-i); //Check if the new distance is longer than the current answer
+				ans = max(ans, int(set.size())); //Check if the new distance is longer than the current answer
 			}
 			else
 			{
