@@ -11,11 +11,10 @@ private:
     Node *left, *right;
     
     void remove(Node *node){
-        Node* pre = node->prev;
-        Node* post = node->next;
+        Node *pre = node->prev;
         
-        pre->next = post;
-        post->prev = pre;
+        pre->next = node->next;
+        node->next->prev = pre;
     }
     
     void insert(Node *node){
@@ -27,7 +26,7 @@ private:
         node->next = right;
         right->prev = node;
     }
-    
+
 public:
     LRUCache(int capacity) {
         cap = capacity;
@@ -39,7 +38,7 @@ public:
     }
     
     int get(int key) {
-        if (cache.find(key) != cache.end()){
+        if(cache.find(key)!=cache.end()){
             remove(cache[key]);
             insert(cache[key]);
             return cache[key]->val;
@@ -48,7 +47,9 @@ public:
     }
     
     void put(int key, int value) {
-        if(cache.find(key)!=cache.end())    remove(cache[key]);
+        if(cache.find(key)!=cache.end()){
+            remove(cache[key]);
+        }
         cache[key] = new Node(key, value);
         insert(cache[key]);
         
