@@ -35,11 +35,12 @@ public:
         vector<int> ans(queries.size(), -1); 
         vector<pair<int, pair<int,int>>> offlineQueries; 
         sort(arr.begin(), arr.end()); 
+        
         int index = 0;
         for(auto it: queries)   offlineQueries.push_back({it[1],{it[0], index++}}); 
-        sort(offlineQueries.begin(), offlineQueries.end()); 
+        sort(offlineQueries.begin(), offlineQueries.end());
+        
         int i = 0; 
-
         for(auto it : offlineQueries) {
             while(i < arr.size() && arr[i] <= it.first) insert(arr[i++]); 
             if(i) ans[it.second.second] = findMaxXor(it.second.first); 
