@@ -32,24 +32,17 @@ public:
     }
 
     vector<int> maximizeXor(vector<int>& arr, vector<vector<int>>& queries) {
-        vector<int> ans(queries.size(), 0); 
+        vector<int> ans(queries.size(), -1); 
         vector<pair<int, pair<int,int>>> offlineQueries; 
         sort(arr.begin(), arr.end()); 
         int index = 0;
-        for(auto &it: queries) {
-            offlineQueries.push_back({it[1],{it[0], index++}}); 
-        }
+        for(auto it: queries)   offlineQueries.push_back({it[1],{it[0], index++}}); 
         sort(offlineQueries.begin(), offlineQueries.end()); 
         int i = 0; 
-        int n = arr.size(); 
 
-        for(auto &it : offlineQueries) {
-            while(i < n && arr[i] <= it.first) {
-                insert(arr[i]); 
-                i++; 
-            }
-            if(i!=0) ans[it.second.second] = findMaxXor(it.second.first); 
-            else ans[it.second.second] = -1; 
+        for(auto it : offlineQueries) {
+            while(i < arr.size() && arr[i] <= it.first) insert(arr[i++]); 
+            if(i) ans[it.second.second] = findMaxXor(it.second.first); 
         }
         return ans; 
     }
