@@ -14,21 +14,12 @@ public:
         ListNode *prev = new ListNode(0, head);
         ListNode *ans = prev;
         ListNode *cur = head;
-        bool flag = false;
+
         while(cur && cur->next) {
-            while(cur->next && cur->val==cur->next->val){
-                cur = cur->next;
-                flag = true;
-            }
-            if(flag){
-                prev->next = cur->next;
-                cur = prev->next;
-                flag = false;
-            }
-            else{
-                cur = cur->next;
-                prev = prev->next;
-            }
+            while(cur->next && cur->val==cur->next->val)    cur = cur->next;
+            if(prev->next == cur)   prev = prev->next;
+            else    prev->next = cur->next;
+            cur = cur->next;
             
         }
         return ans->next;
