@@ -15,9 +15,29 @@ public:
     
     vector<int> inorderTraversal(TreeNode* root) {
         if(!root)   return ans;
-        inorderTraversal(root->left);
+        
+        //Recursive solution
+        /*inorderTraversal(root->left);
         ans.push_back(root->val);
         inorderTraversal(root->right);
+        return ans;*/
+        
+        //Iterative Solution
+        TreeNode *node = root;
+        stack<TreeNode*> st;
+        while(true){
+            if(node){
+                st.push(node);
+                node = node->left;
+            }
+            else{
+                if(st.empty())  break;
+                node = st.top();
+                st.pop();
+                ans.push_back(node->val);
+                node = node->right; 
+            }
+        }
         return ans;
     }
 };
