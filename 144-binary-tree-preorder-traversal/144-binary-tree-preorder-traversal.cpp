@@ -16,11 +16,13 @@ public:
     vector<int> preorderTraversal(TreeNode* root) {
         if(!root)   return ans;
         
+        //Recursive solution
         /*ans.push_back(root->val);
         preorderTraversal(root->left);
         preorderTraversal(root->right);
         return ans;*/
         
+        //Iterative solution
         stack<TreeNode*> st;
         st.push(root);
         while(!st.empty()){
