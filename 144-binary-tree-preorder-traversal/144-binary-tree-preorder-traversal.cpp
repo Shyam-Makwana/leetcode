@@ -15,9 +15,21 @@ public:
     
     vector<int> preorderTraversal(TreeNode* root) {
         if(!root)   return ans;
-        ans.push_back(root->val);
+        
+        /*ans.push_back(root->val);
         preorderTraversal(root->left);
         preorderTraversal(root->right);
+        return ans;*/
+        
+        stack<TreeNode*> st;
+        st.push(root);
+        while(!st.empty()){
+            TreeNode *t = st.top();
+            st.pop();
+            ans.push_back(t->val);
+            if(t->right)    st.push(t->right);
+            if(t->left)    st.push(t->left);
+        }
         return ans;
     }
 };
