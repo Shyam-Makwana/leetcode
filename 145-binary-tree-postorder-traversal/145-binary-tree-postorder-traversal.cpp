@@ -11,40 +11,37 @@
  */
 class Solution {
 public:
-    vector<int> ans;
+    vector<int> nodes;
     
     vector<int> postorderTraversal(TreeNode* root) {
-        if(!root)   return ans;
+        if(!root)   return nodes;
         
         //Recursive solution
         /*postorderTraversal(root->left);
         postorderTraversal(root->right);
         ans.push_back(root->val);
-        return ans;*/
+        return nodes;*/
         
         //Iterative solution
-        stack<TreeNode*>st;
-        TreeNode *curr = root, *temp;
-        while(!st.empty() || curr){
-            if(curr){
-                st.push(curr);
-                curr = curr->left;
-            }
-            else{
-                temp = st.top()->right;
-                if(!temp){
-                   temp = st.top();
+        stack<TreeNode*> st;
+        TreeNode *last = NULL;
+        while (root || !st.empty()) {
+            if (root) {
+                st.push(root);
+                root = root -> left;
+            } 
+            else {
+                TreeNode *node = st.top();
+                if (node -> right && last != node -> right) {
+                    root = node -> right;
+                } 
+                else {
+                    nodes.push_back(node -> val);
+                    last = node;
                     st.pop();
-                    ans.push_back(temp->val);
-                    while(!st.empty() && temp==st.top()->right){
-                        temp = st.top();
-                        st.pop();
-                        ans.push_back(temp->val);
-                    }
                 }
-                else    curr=temp;
             }
         }
-        return ans;
+        return nodes;
     }
 };
