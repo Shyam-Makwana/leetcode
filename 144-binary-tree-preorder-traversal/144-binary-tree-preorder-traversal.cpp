@@ -10,17 +10,17 @@
  * };
  */
 class Solution {
-    vector<int> ans;
+    vector<int> nodes;
 public:
     
     vector<int> preorderTraversal(TreeNode* root) {
-        if(!root)   return ans;
+        if(!root)   return nodes;
         
         //Recursive solution
-        /*ans.push_back(root->val);
+        /*nodes.push_back(root->val);
         preorderTraversal(root->left);
         preorderTraversal(root->right);
-        return ans;*/
+        return nodes;*/
         
         //Iterative solution
         stack<TreeNode*> st;
@@ -28,10 +28,10 @@ public:
         while(!st.empty()){
             TreeNode *t = st.top();
             st.pop();
-            ans.push_back(t->val);
+            nodes.push_back(t->val);
             if(t->right)    st.push(t->right);
             if(t->left)    st.push(t->left);
         }
-        return ans;
+        return nodes;
     }
 };
