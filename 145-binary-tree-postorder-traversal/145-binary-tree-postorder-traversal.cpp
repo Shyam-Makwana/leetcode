@@ -19,29 +19,20 @@ public:
         //Recursive solution
         /*postorderTraversal(root->left);
         postorderTraversal(root->right);
-        ans.push_back(root->val);
+        nodes.push_back(root->val);
         return nodes;*/
         
         //Iterative solution
         stack<TreeNode*> st;
-        TreeNode *last = NULL;
-        while (root || !st.empty()) {
-            if (root) {
-                st.push(root);
-                root = root -> left;
-            } 
-            else {
-                TreeNode *node = st.top();
-                if (node -> right && last != node -> right) {
-                    root = node -> right;
-                } 
-                else {
-                    nodes.push_back(node -> val);
-                    last = node;
-                    st.pop();
-                }
-            }
+        st.push(root);
+        while (!st.empty()) {
+            TreeNode *node = st.top();
+            st.pop();
+            nodes.push_back(node->val);
+            if(node->left)  st.push(node->left);
+            if(node->right) st.push(node->right);
         }
+        reverse(nodes.begin(), nodes.end());
         return nodes;
     }
 };
