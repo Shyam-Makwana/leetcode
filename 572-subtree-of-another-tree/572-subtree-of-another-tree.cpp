@@ -23,15 +23,9 @@ public:
         if(!subRoot)    return true;
         if(!root)   return false;
         
-        stack<TreeNode*> st;
-        st.push(root);
-        while(!st.empty()){
-            TreeNode *node = st.top();
-            st.pop();
-            if(node->val==subRoot->val && isSameTree(node, subRoot))    return true;
-            if(node->right) st.push(node->right);
-            if(node->left)  st.push(node->left);
-        }
-        return false;
+        if(root->val==subRoot->val && isSameTree(root, subRoot))    return true;
+        
+        return (isSubtree(root->left, subRoot) ||
+                isSubtree(root->right, subRoot));
     }
 };
