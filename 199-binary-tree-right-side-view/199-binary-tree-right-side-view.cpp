@@ -11,9 +11,23 @@
  */
 class Solution {
 public:
+    vector<int> nodes;
+    
+    void rightView(TreeNode *root, int level){
+        if(!root)   return;
+        
+        if(nodes.size()==level) nodes.push_back(root->val);
+        
+        rightView(root->right, level + 1);
+        rightView(root->left, level + 1);
+    }
+    
     vector<int> rightSideView(TreeNode* root) {
-        vector<int> nodes;
-        queue<TreeNode *> q;
+        
+        //Recursion
+        rightView(root, 0);
+        
+        /*queue<TreeNode *> q;
         
         if(root)   q.push(root);
         
@@ -27,7 +41,8 @@ public:
                 if(node->right) q.push(node->right);
             }
             nodes.push_back(val);
-        }
+        }*/
+        
         return nodes;
     }
 };
