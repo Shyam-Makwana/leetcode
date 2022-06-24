@@ -11,7 +11,25 @@
  */
 class Solution {
 public:
+    int count = 0, ans = 0;
+    
+    /*void kthSmallest(TreeNode *root){
+        if(root->left)  kthSmallest(root->left);
+        if(--count == 0) {
+            ans = root->val;
+            return;  
+        }
+        if(root->right)  kthSmallest(root->right);
+    }*/
+    
     int kthSmallest(TreeNode* root, int k) {
+        
+        //Recursion In order
+        /*count = k;
+        kthSmallest(root);
+        return ans;*/
+        
+        //Iterative In order
         stack<TreeNode*> st;
         while(root || !st.empty()){
             while(root){
