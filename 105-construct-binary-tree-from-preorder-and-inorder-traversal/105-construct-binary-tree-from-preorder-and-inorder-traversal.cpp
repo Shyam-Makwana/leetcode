@@ -12,28 +12,21 @@
 class Solution {
 public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        int index = 0;
-        return build(preorder, inorder, index, 0, inorder.size() - 1);
+        int preStart = 0;
+        return build(preorder, inorder, preStart, 0, inorder.size() - 1);
     }
 private:
-    TreeNode* build(vector<int>& preorder, vector<int>& inorder, int& index, int i, int j) {
-        if (i > j) {
-            return NULL;
-        }
+    TreeNode* build(vector<int> preorder, vector<int> inorder, int &preStart, int inStart, int inEnd) {
+        if (inStart > inEnd)    return NULL;
         
-        TreeNode* root = new TreeNode(preorder[index]);
+        TreeNode* root = new TreeNode(preorder[preStart]);
         
-        int split = 0;
-        for (int i = 0; i < inorder.size(); i++) {
-            if (preorder[index] == inorder[i]) {
-                split = i;
-                break;
-            }
-        }
-        index++;
+        int pivot = inStart;
+        while(preorder[preStart] != inorder[pivot])  pivot++;
         
-        root->left = build(preorder, inorder, index, i, split - 1);
-        root->right = build(preorder, inorder, index, split + 1, j);
+        preStart++;
+        root->left = build(preorder, inorder, preStart, inStart, pivot - 1);
+        root->right = build(preorder, inorder, preStart, pivot + 1, inEnd);
         
         return root;
     }
