@@ -14,12 +14,9 @@ public:
     int findMaxi(TreeNode *root, int &maxi){
         if(!root)   return 0;
         
-        int leftSum = findMaxi(root->left, maxi);
-        int rightSum = findMaxi(root->right, maxi);
-        
-        if(leftSum < 0)    leftSum = 0;
-        if(rightSum < 0)    rightSum = 0;
-        
+        int leftSum = max(0, findMaxi(root->left, maxi));
+        int rightSum = max(0, findMaxi(root->right, maxi));
+
         maxi = max(maxi, root->val + leftSum + rightSum);
         return root->val + max(leftSum, rightSum);
     }
