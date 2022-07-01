@@ -4,6 +4,9 @@ public:
         /*nth_element(begin(nums), begin(nums)+k-1, end(nums), greater<int>());
         return nums[k-1];*/
         
+        /*partial_sort(nums.begin(), nums.begin() + k, nums.end(), greater<int>());
+        return nums[k - 1];*/
+        
         k = nums.size() - k + 1;
         priority_queue<int> pq;
         for(int i: nums){
