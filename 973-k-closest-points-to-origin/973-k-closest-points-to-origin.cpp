@@ -5,12 +5,27 @@ public:
         int pt2 = B[0]*B[0] + B[1]*B[1];
         return pt1 < pt2;
     }
+    
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
-        sort(points.begin(), points.end(), compare);
+        /* 1st Solution
+        auto euclidean = [](auto& p) { return p[0] * p[0] + p[1] * p[1]; };
+        sort(begin(points), end(points), [&](auto& a, auto& b) { return euclidean(a) < euclidean(b); });
+        points.resize(k);
+        return points;*/
+        
+        //2nd Solution
+        nth_element(points.begin(), points.begin()+k, points.end(), compare);
         points.resize(k);
         return points;
         
-        /*vector<vector<int>> ans;
+        
+        /* 3rd Solution
+        sort(points.begin(), points.end(), compare);
+        points.resize(k);
+        return points;*/
+        
+        /* 4th Solution
+        vector<vector<int>> ans;
         priority_queue<pair<int, int>> pq;
         int i=0;
         for(auto pt: points){
