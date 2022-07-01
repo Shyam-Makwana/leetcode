@@ -6,17 +6,15 @@ public:
         for(auto i: B){
             pq.push({i[1], i[0]});
         }
-        while(size!=T && !pq.empty()){
+        while(!pq.empty()){
             auto i = pq.top(); pq.pop();
             if((size+i.second)<=T){
                 maxUnits += (i.first*i.second);
                 size += i.second;
-                cout<<i.second<<' '<<i.first<<endl;
             }
             else{
                 maxUnits += ((T-size)*i.first);
-                size = T;
-                cout<<i.second<<' '<<i.first<<endl;
+                break;
             }
         }
         return maxUnits;
