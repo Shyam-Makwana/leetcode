@@ -7,24 +7,24 @@ public:
     }
     
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
-        /* 1st Solution
+        /* Same as 2nd Solution
         auto euclidean = [](auto& p) { return p[0] * p[0] + p[1] * p[1]; };
         sort(begin(points), end(points), [&](auto& a, auto& b) { return euclidean(a) < euclidean(b); });
         points.resize(k);
         return points;*/
         
-        //2nd Solution
+        // 1st Solution
         nth_element(points.begin(), points.begin()+k, points.end(), compare);
         points.resize(k);
         return points;
         
         
-        /* 3rd Solution
+        /* 2nd Solution
         sort(points.begin(), points.end(), compare);
         points.resize(k);
         return points;*/
         
-        /* 4th Solution
+        /* 3rd Solution
         vector<vector<int>> ans;
         priority_queue<pair<int, int>> pq;
         int i=0;
