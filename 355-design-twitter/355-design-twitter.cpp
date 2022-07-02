@@ -13,6 +13,9 @@ public:
     
     void postTweet(int userId, int tweetId) {
         t[userId].push_back({time++, tweetId});
+        
+        //so, if he follows himself, we don't have to traverse through 2 for loop.
+        //One for getting his tweets and another by his following.
         fo[userId].insert(userId);
     }
     
@@ -20,16 +23,21 @@ public:
         //time and tweetId
         priority_queue<pair<int, int>> maxHeap;
         
+        //This is for getting the tweets by themself
+        //We added his own id to following, i.e. he follows himself
         /*for(auto userTweets=t[userId].begin(); userTweets!=t[userId].end(); userTweets++){
             maxHeap.push(*userTweets);
         }*/
         
+        //This is for getting the tweets by their following
         for(auto foTweets=fo[userId].begin(); foTweets!=fo[userId].end(); foTweets++){
             int userId = *foTweets;
             for(auto userTweets=t[userId].begin(); userTweets!=t[userId].end(); userTweets++){
                 maxHeap.push(*userTweets);
             }
         }
+        
+        //Adding all the recent tweets based on time using Max Heap
         vector<int> recentTweets;
         while(!maxHeap.empty()){
             recentTweets.push_back(maxHeap.top().second);
