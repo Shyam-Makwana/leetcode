@@ -3,17 +3,17 @@ public:
     vector<vector<int>> subset;
     
     vector<vector<int>> subsets(vector<int>& nums) {
-        vector<int> sub;
-        subsets(nums, sub, 0);
+        vector<int> curr;
+        subsets(nums, curr, 0);
         return subset;
     }
     
-    void subsets(vector<int>& nums, vector<int>& sub, int i){
-        subset.push_back(sub);
+    void subsets(vector<int> &nums, vector<int> &curr, int i){
+        subset.push_back(curr);
         for(int j=i; j<size(nums); j++){
-            sub.push_back(nums[j]);
-            subsets(nums, sub, j+1);
-            sub.pop_back();
-        }      
+            curr.push_back(nums[j]);
+            subsets(nums, curr, j+1);
+            curr.pop_back(); 
+        }
     }
 };
