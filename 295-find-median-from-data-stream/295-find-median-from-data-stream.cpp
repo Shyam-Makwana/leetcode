@@ -1,6 +1,8 @@
 class MedianFinder {
 private:
+    //small or maxheap
     priority_queue<int> small;
+    //large or minheap
     priority_queue<int, vector<int>, greater<int>> large;
     
 public:
@@ -8,17 +10,23 @@ public:
     }
     
     void addNum(int num) {
-        small.push(num);
-        large.push(small.top());
-        small.pop();
-        if(size(small) < size(large)){
+        if(small.empty() || small.top()>num)   small.push(num);
+        else large.push(num);
+        
+        if(size(small) > (size(large) + 1)){
+            large.push(small.top());
+            small.pop();
+        }
+        else if((size(small) + 1) < size(large)){
             small.push(large.top());
             large.pop();
         }
     }
     
     double findMedian() {
-        return size(small)==size(large) ? ((small.top() + large.top()) / 2.0) : small.top(); 
+        if(size(small)==size(large))    return (small.top() + large.top()) / 2.0;
+        else if(size(small) > size(large))  return small.top();
+        else return large.top();
     }
 };
 
