@@ -20,5 +20,11 @@ public:
             combinationSum(candidates, current, j, target, total + candidates[j]);
             current.pop_back();
         }	
+        
+        /*current.push_back(candidates[i]);
+		combinationSum(candidates, current, i, target, total + candidates[i]);
+		
+		current.pop_back();
+		combinationSum(candidates, current, i+1, target, total);*/
 	}
 };
