@@ -14,14 +14,15 @@ public:
 			return;
 		}
 		else if(total>target) return;
+        //else if(total>target || i>=size(candidates)) return;
 		
         for(int j=i; j<size(candidates); j++){
             current.push_back(candidates[j]);
             combinationSum(candidates, current, j, target, total + candidates[j]);
             current.pop_back();
-        }	
+        }
         
-        /*current.push_back(candidates[i]);
+		/*current.push_back(candidates[i]);
 		combinationSum(candidates, current, i, target, total + candidates[i]);
 		
 		current.pop_back();
