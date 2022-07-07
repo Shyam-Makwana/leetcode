@@ -9,11 +9,17 @@ public:
     }
     
     void subsets(vector<int> &nums, vector<int> &curr, int i){
-        subset.push_back(curr);
-        for(int j=i; j<size(nums); j++){
-            curr.push_back(nums[j]);
-            subsets(nums, curr, j+1);
-            curr.pop_back(); 
+        if(i==size(nums)){
+            subset.push_back(curr);
+            return;
         }
+        
+        // decision to include nums[i]
+        curr.push_back(nums[i]);
+        subsets(nums, curr, i+1);
+        
+        // decision NOT to include nums[i]
+        curr.pop_back(); 
+        subsets(nums, curr, i+1);
     }
 };
