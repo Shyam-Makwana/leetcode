@@ -1,23 +1,27 @@
 class Solution {
-    int row, col;
-    string word;
 public:
-    bool dfs(vector<vector<char>>& board, int r, int c, int w){
-        if(w==size(word))   return true;
-        if(r<0 || c<0 || r>=row || c>=col || board[r][c]!=word[w])  return false;
-        char ch = board[r][c];
-        board[r][c] = '*';
-        bool res = dfs(board, r+1, c, w+1) || dfs(board, r-1, c, w+1) || dfs(board, r, c+1, w+1) || dfs(board, r, c-1, w+1);
-        board[r][c] = ch;
-        return res;
+    int row, col;
+    bool exist(vector<vector<char>>& board, string word) {
+        row = size(board), col = size(board[0]);
+        int find = 0;
+        for(int i=0; i<row; i++){
+            for(int j=0; j<col; j++){
+                if(exist(board, word, find, i, j)) return true;
+            }
+        }
+        return false;
     }
     
-    bool exist(vector<vector<char>>& board, string ww) {
-        row = size(board), col = size(board[0]);
-        word = ww;
-        for(int i=0;i<row;i++)
-            for(int j=0;j<col;j++)
-                if(dfs(board, i, j, 0))  return true;
-        return false;
+    bool exist(vector<vector<char>>& board, string word, int find, int i, int j){
+        if(i<0 || j<0 || i==row || j==col || board[i][j]=='*' || board[i][j]!=word[find]) return false;
+        if(find==size(word)-1)  return true;
+        
+        char c = board[i][j];
+        board[i][j] = '*';
+        bool ans = exist(board, word, find+1, i+1, j) || exist(board, word, find+1, i-1, j) ||
+                   exist(board, word, find+1, i, j+1) || exist(board, word, find+1, i, j-1);
+        
+        board[i][j] = c;
+        return ans;
     }
 };
