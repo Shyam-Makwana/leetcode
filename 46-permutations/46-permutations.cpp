@@ -4,20 +4,24 @@ public:
     
     vector<vector<int>> permute(vector<int>& nums) {
         vector<int> curr;
-        permute(nums, curr);
+        vector<int> freq(size(nums));
+        permute(nums, curr, freq);
         return perm;
     }
     
-    void permute(vector<int>& nums, vector<int>& curr) {
+    void permute(vector<int>& nums, vector<int>& curr, vector<int> &freq) {
         if(size(curr)==size(nums)){
             perm.push_back(curr);
             return;
         }
         for(int i=0; i<size(nums); i++){
-            if(find(curr.begin(), curr.end(), nums[i]) != curr.end())  continue;
-            curr.push_back(nums[i]);
-            permute(nums, curr);
-            curr.pop_back();
+            if(!freq[i]){
+                curr.push_back(nums[i]);
+                freq[i] = 1;
+                permute(nums, curr, freq);
+                freq[i] = 0;
+                curr.pop_back();
+            }
         }
     }  
 };
