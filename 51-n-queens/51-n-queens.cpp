@@ -1,6 +1,7 @@
 class Solution {
 public:
     vector<vector<string>> result;
+    unordered_set<int> col, posDiag, negDiag;
     
     vector<vector<string>> solveNQueens(int n) {
         vector<string> board(n, string(n, '.'));
@@ -8,34 +9,26 @@ public:
         return result;
     }
     
-    void dfs(int n, int row, vector<string> &board) {
-        if(n==row){
+    void dfs(int n, int r, vector<string> &board) {
+        if(n==r){
             result.push_back(board);
             return;
         }
         
-        for(int col=0; col<n; col++) {
-            if(isValid(n, row, col, board)){
-                board[row][col] = 'Q';
-                dfs(n, row+1, board);
-                board[row][col] = '.';
-            }
-        }
-    }
-    
-    bool isValid(int n, int row, int col, vector<string> &board) {
-        for(int i=0; i<row; i++) {
-            if(board[i][col]=='Q')    return false;
-        }
+        for(int c=0; c<n; c++) {
+            if(col.find(c)!=col.end() || posDiag.find(r+c)!=posDiag.end() || negDiag.find(r-c)!=negDiag.end())  continue;
         
-        for(int i=row-1, j=col-1; i>=0 && j>=0; i--, j--) {
-            if(board[i][j]=='Q')    return false;
+            board[r][c] = 'Q';
+            col.insert(c);
+            posDiag.insert(r+c);
+            negDiag.insert(r-c);
+            
+            dfs(n, r+1, board);
+            
+            col.erase(c);
+            posDiag.erase(r+c);
+            negDiag.erase(r-c);
+            board[r][c] = '.';
         }
-        
-        for(int i=row-1, j=col+1; i>=0 && j<n; i--, j++) {
-            if(board[i][j]=='Q')    return false;
-        }
-        
-        return true;
     }
 };
