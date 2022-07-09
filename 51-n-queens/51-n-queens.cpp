@@ -1,37 +1,41 @@
 class Solution {
 public:
-    std::vector<std::vector<std::string> > solveNQueens(int n) {
-        std::vector<std::vector<std::string> > res;
-        std::vector<std::string> nQueens(n, std::string(n, '.'));
-        solveNQueens(res, nQueens, 0, n);
-        return res;
+    vector<vector<string>> result;
+    
+    vector<vector<string>> solveNQueens(int n) {
+        vector<string> board(n, string(n, '.'));
+        dfs(n, 0, board);
+        return result;
     }
-private:
-    void solveNQueens(std::vector<std::vector<std::string> > &res, std::vector<std::string> &nQueens, int row, int &n) {
-        if (row == n) {
-            res.push_back(nQueens);
+    
+    void dfs(int n, int row, vector<string> &board) {
+        if(n==row){
+            result.push_back(board);
             return;
         }
-        for (int col = 0; col != n; ++col)
-            if (isValid(nQueens, row, col, n)) {
-                nQueens[row][col] = 'Q';
-                solveNQueens(res, nQueens, row + 1, n);
-                nQueens[row][col] = '.';
+        
+        for(int col=0; col<n; col++) {
+            if(isValid(n, row, col, board)){
+                board[row][col] = 'Q';
+                dfs(n, row+1, board);
+                board[row][col] = '.';
             }
+        }
     }
-    bool isValid(std::vector<std::string> &nQueens, int row, int col, int &n) {
-        //check if the column had a queen before.
-        for (int i = 0; i != row; ++i)
-            if (nQueens[i][col] == 'Q')
-                return false;
-        //check if the 45° diagonal had a queen before.
-        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; --i, --j)
-            if (nQueens[i][j] == 'Q')
-                return false;
-        //check if the 135° diagonal had a queen before.
-        for (int i = row - 1, j = col + 1; i >= 0 && j < n; --i, ++j)
-            if (nQueens[i][j] == 'Q')
-                return false;
+    
+    bool isValid(int n, int row, int col, vector<string> &board) {
+        for(int i=0; i<row; i++) {
+            if(board[i][col]=='Q')    return false;
+        }
+        
+        for(int i=row-1, j=col-1; i>=0 && j>=0; i--, j--) {
+            if(board[i][j]=='Q')    return false;
+        }
+        
+        for(int i=row-1, j=col+1; i>=0 && j<n; i--, j++) {
+            if(board[i][j]=='Q')    return false;
+        }
+        
         return true;
     }
 };
