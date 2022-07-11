@@ -1,22 +1,18 @@
 class Solution {
 public:
     bool isInterleave(string s1, string s2, string s3) {
-        if(s3.length() != s1.length() + s2.length())    return false;
-    
-        bool table[s1.length()+1][s2.length()+1];
-
-        for(int i=0; i<s1.length()+1; i++){
-            for(int j=0; j< s2.length()+1; j++){
-                if(i==0 && j==0)
-                    table[i][j] = true;
-                else if(i == 0)
-                    table[i][j] = ( table[i][j-1] && s2[j-1] == s3[i+j-1]);
-                else if(j == 0)
-                    table[i][j] = ( table[i-1][j] && s1[i-1] == s3[i+j-1]);
-                else
-                    table[i][j] = (table[i-1][j] && s1[i-1] == s3[i+j-1] ) || (table[i][j-1] && s2[j-1] == s3[i+j-1] );
+        int len1 = s1.size(), len2 = s2.size(), len3 = s3.size();
+        if(len3 != (len1 + len2))    return false;
+        
+        vector<vector<bool>> dp(len1+1, vector<bool> (len2+1)); 
+        dp[len1][len2] = true;
+        
+        for(int i=len1; i>=0; i--){
+            for(int j=len2; j>=0; j--){
+                if(i<len1 && s1[i]==s3[i+j] && dp[i+1][j])  dp[i][j] = true;
+                if(j<len2 && s2[j]==s3[i+j] && dp[i][j+1])  dp[i][j] = true;
             }
         }
-        return table[s1.length()][s2.length()];
+        return dp[0][0];
     }
 };
