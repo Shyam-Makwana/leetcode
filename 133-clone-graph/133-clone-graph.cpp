@@ -23,6 +23,7 @@ class Solution {
 public:
     unordered_map<Node*, Node*> mp;
     
+    //BFS Solution
     Node* cloneGraph(Node* node) {
         if(node==NULL)  return NULL;
         
