@@ -5,21 +5,25 @@ public:
         int i = left;
         int j = mid+1;
         int k = 0;
-
+        int cnt = 0;
+        
         while (i <= mid && j <= right) {
             //cout<<v[i].first<<' '<<v[j].first<<endl;
             // mind that we're sorting in descending order
             if (v[i].first <= v[j].first) { 
-                tmp[k++] = v[j++];
+                count[v[i].second] += cnt;
+                tmp[k++] = v[i++];
             }
             else {
                 // only line responsible to update count, related to problem constraint, 
                 // remaining part is just regular mergeSort 
-                count[v[i].second] += right - j + 1;
-                tmp[k++] = v[i++];
+                // count[v[i].second] += right - j + 1;
+                cnt++;
+                tmp[k++] = v[j++];
             }
         }
         while (i <= mid) {
+            count[v[i].second] += cnt;
             tmp[k++] = v[i++];
         }
         while (j <= right) {
