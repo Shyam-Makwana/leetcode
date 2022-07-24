@@ -1,4 +1,4 @@
-class Solution {
+    class Solution {
 public:
     void merge(vector<int> &count, vector<pair<int, int> > &v, int left, int mid, int right) {
         vector<pair<int, int> > tmp(right-left+1);
@@ -7,6 +7,7 @@ public:
         int k = 0;
 
         while (i <= mid && j <= right) {
+            //cout<<v[i].first<<' '<<v[j].first<<endl;
             // mind that we're sorting in descending order
             if (v[i].first <= v[j].first) { 
                 tmp[k++] = v[j++];
@@ -26,6 +27,8 @@ public:
         }
         for (int i = left; i <= right; i++)
             v[i] = tmp[i-left];
+        //for(auto i: v)  cout<<i.first<<' ';
+        //cout<<endl;
     }        
 
     void mergeSort(vector<int> &count, vector<pair<int, int> > &v, int left, int right) {
