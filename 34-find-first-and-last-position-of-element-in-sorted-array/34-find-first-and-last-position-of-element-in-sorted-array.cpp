@@ -2,20 +2,21 @@ class Solution {
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
         vector<int> ans(2);
-        ans[0] = binSearch(nums, target, true);
-        ans[1] = binSearch(nums, target, false);
+        ans[0] = binarySearch(nums, target, true);
+        ans[1] = binarySearch(nums, target, false);
         return ans;
     }
     
-    int binSearch(vector<int> nums, int target, bool leftBias){
-        int l = 0, r = size(nums)-1, i=-1;
-        while(l<=r){
-            int m = (l+r)/2;
-            if(target>nums[m])  l = m + 1;
-            else if(target<nums[m]) r = m - 1;
-            else{
+    int binarySearch(vector<int>& nums, int target, bool leftValue) {
+        int i = -1;
+        int l = 0, r = size(nums)-1;
+        while(l<=r) {
+            int m = l + (r-l)/2;
+            if(nums[m] < target)    l = m + 1;
+            else if(nums[m] > target)   r = m - 1;
+            else {
                 i = m;
-                if(leftBias)    r = m - 1;
+                if(leftValue)   r = m - 1;
                 else l = m + 1;
             }
         }
