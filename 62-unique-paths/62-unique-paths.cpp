@@ -7,12 +7,11 @@ public:
     
     int dfs(int m, int n, vector<vector<int>> &dp){
         int row = size(dp), col = size(dp[0]);
-        if(m==row || n==col) return 0;
-        if(dp[m][n])    return dp[m][n];
-        if(m==row-1 && n==col-1)    return 1;
-
-        dp[m][n] = dfs(m+1, n, dp) + dfs(m, n+1, dp);
         
-        return dp[m][n];
+        if(m==row || n==col) return 0;  // out of bounds - invalid
+        if(m==row-1 && n==col-1)    return 1;   // reached end - valid path
+        if(dp[m][n])    return dp[m][n];    // directly return if already calculated
+        
+        return dp[m][n] = dfs(m+1, n, dp) + dfs(m, n+1, dp);    // store the result in dp[i][j] and then return
     }
 };
