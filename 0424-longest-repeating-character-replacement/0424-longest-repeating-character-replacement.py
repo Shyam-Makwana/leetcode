@@ -14,7 +14,7 @@ class Solution:
             maxx = self.findMaxChar(freq)
             while ((r-l+1) - maxx) > k:
                 freq[s[l]] -= 1
-                maxx = self.findMaxChar(freq)
+                # maxx = self.findMaxChar(freq)
                 l+=1
             result = max(result, r-l+1)
             r += 1
