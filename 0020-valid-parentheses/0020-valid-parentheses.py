@@ -3,7 +3,7 @@ class Solution:
         stack = []
         parentheses = {'(': ')', '{': '}', '[': ']'}
         for c in s:
-            if c in ['(', '{', '[']:
+            if c in parentheses:
                 stack.append(parentheses[c])
             elif not stack or stack.pop() != c:
                 return False
