@@ -5,12 +5,8 @@ class Solution:
         for c in s:
             if c in ['(', '{', '[']:
                 stack.append(parentheses[c])
-            else:
-                if not stack:
-                    return False
-                paren = stack.pop()
-                if paren != c:
-                    return False
+            elif not stack or stack.pop() != c:
+                return False
                 
         return not stack
         
