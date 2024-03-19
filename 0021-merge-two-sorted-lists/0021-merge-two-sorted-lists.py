@@ -15,8 +15,5 @@ class Solution:
                 curr.next = list2
                 list2 = list2.next
             curr = curr.next
-        if list1:
-            curr.next = list1
-        else:
-            curr.next = list2
+        curr.next = list1 or list2
         return new_list.next
